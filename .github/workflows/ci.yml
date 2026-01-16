@@ -19,7 +19,7 @@ jobs:
       enable-cache: true
       run-tests: false
       test-executable: ''
-      upload-artifacts: false
+      upload-artifacts: true
       artifact-name: 'build-output'
       artifact-path: ''
     secrets: inherit

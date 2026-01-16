@@ -1,0 +1,25 @@
+name: CI - Build VS C++ (reusable)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: kenpower/workflows/.github/workflows/build-vs-cpp.yml@main
+    with:
+      solution-path: 'Ecapsulation_worksheet.sln'
+      configuration: 'Release'
+      platform: 'x64'
+      vs-version: '2022'
+      build-args: ''
+      enable-cache: true
+      run-tests: false
+      test-executable: ''
+      upload-artifacts: true
+      artifact-name: 'Ecapsulation_worksheet.exe'
+      artifact-path: 'x64\Release\'
+    secrets: inherit

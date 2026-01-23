@@ -113,11 +113,7 @@ public:
             }
             randomlyHealPlayer();
         }
-        equipRandomWeapon(player);
-        equipRandomWeapon(enemy);
 
-
-        
         if (player.getHealth() <= 0) {
             std::cout << player.getName() << " has been defeated.\n";
             return 1;
@@ -128,15 +124,13 @@ public:
         }
     }
 
-    void equipPlayerWeapon(int weaponIndex) {
+    void equipCharacterWeapon(bool isPlayer, int weaponIndex) {
         if (weaponIndex >= 0 && weaponIndex < weapons.size()) {
-            player.setWeapon(&weapons[weaponIndex]);
-        }
-    }
-
-    void equipEnemyWeapon(int weaponIndex) {
-        if (weaponIndex >= 0 && weaponIndex < weapons.size()) {
-            enemy.setWeapon(&weapons[weaponIndex]);
+            if (isPlayer) {
+                player.setWeapon(&weapons[weaponIndex]);
+            } else {
+                enemy.setWeapon(&weapons[weaponIndex]);
+            }
         }
     }
 
@@ -184,8 +178,8 @@ int main() {
     game.addWeapon(bow);
 
     // Equip weapons
-    game.equipPlayerWeapon(0); // Equip sword to player
-    game.equipEnemyWeapon(1);  // Equip axe to enemy
+    game.equipCharacterWeapon(true, 0);  // Equip sword to player
+    game.equipCharacterWeapon(false, 1); // Equip axe to enemy
 
 
     game.startGame();

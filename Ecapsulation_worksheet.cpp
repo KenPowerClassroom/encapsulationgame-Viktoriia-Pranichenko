@@ -35,7 +35,7 @@ public:
           strength(characterStrength), currentWeapon(nullptr) {}
     
     Weapon* getWeapon() const {
-        return { currentWeapon };
+        return currentWeapon;
     }
 
     void setWeapon(Weapon* weapon) {
@@ -55,6 +55,16 @@ public:
         if (health < 0) health = 0;
         
         std::cout << name << "take damage " << damage << "\n";
+    }
+
+    void attack(Character& target) {
+        if (currentWeapon != nullptr) 
+        {
+            std::cout << name << " attacks " << target.getName() << " with " << currentWeapon->getName() << "\n";
+            int totalDamage = currentWeapon->getDamage() * strength;
+            target.takeDamage(totalDamage);
+            std::cout << target.getName() << " health: " << target.getHealth() << "\n";
+        }
     }
 
 };
@@ -94,16 +104,11 @@ public:
         // Player and enemy health checks
         while (player.getHealth() > 0 && enemy.getHealth() > 0) {
             Weapon* playerWeapon = player.getWeapon();
-            Weapon * enemyWeapon = enemy.getWeapon();
+            Weapon* enemyWeapon = enemy.getWeapon();
 
             if (playerWeapon != nullptr && enemyWeapon != nullptr) {
-                std::cout << player.getName() << " attacks " << enemy.getName() << " with " << playerWeapon->getName() << "\n";
-				enemy.takeDamage(playerWeapon->getDamage() * player.getStrength());
-                std::cout << enemy.getName() << " health: " << enemy.getHealth() << "\n";
-
-                std::cout << enemy.getName() << " attacks " << player.getName() << " with " << enemyWeapon->getName() << "\n";
-                player.takeDamage(enemyWeapon->getDamage() * enemy.getStrength());
-                std::cout << player.getName() << " health: " << player.getHealth() << "\n";
+                player.attack(enemy);
+                enemy.attack(player);
             }
             else {
                 std::cout << "Weapon not equipped. Cannot fight.\n";

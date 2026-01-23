@@ -67,6 +67,13 @@ public:
         }
     }
 
+    void heal(int amount) {
+        if (health > 0) {
+            health += amount;
+            std::cout << name << " healed by " << amount << " points.\n";
+        }
+    }
+
 };
 
 class Player : public Character {
@@ -125,10 +132,12 @@ public:
     }
 
     void equipCharacterWeapon(bool isPlayer, int weaponIndex) {
-        if (weaponIndex >= 0 && weaponIndex < weapons.size()) {
+        if (weaponIndex >= 0 && weaponIndex < weapons.size()) 
+        {
             if (isPlayer) {
                 player.setWeapon(&weapons[weaponIndex]);
-            } else {
+            } 
+            else {
                 enemy.setWeapon(&weapons[weaponIndex]);
             }
         }
@@ -148,14 +157,7 @@ public:
 
     void randomlyHealPlayer() {
         int healAmount = std::rand() % 50 + 1; // heal between 1 and 50 point
-        healPlayer(healAmount);
-    }
-
-    void healPlayer(int amount) {
-        if (player.getHealth() > 0) {
-            player.setHealth(player.getHealth() + amount);
-            std::cout << "Player healed by " << amount << " points.\n";
-        }
+        player.heal(healAmount);
     }
 };
 

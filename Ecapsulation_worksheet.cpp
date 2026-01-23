@@ -143,18 +143,6 @@ public:
         }
     }
 
-
-    Weapon* equipRandomWeapon(Character& character) {
-
-        if (weapons.empty()) {
-            return nullptr;
-        }
-        int randomIndex = std::rand() % weapons.size();
-        Weapon* selectedWeapon = &weapons[randomIndex];
-        character.setWeapon(selectedWeapon);
-        return selectedWeapon;
-    }
-
     void randomlyHealPlayer() {
         int healAmount = std::rand() % 50 + 1; // heal between 1 and 50 point
         player.heal(healAmount);

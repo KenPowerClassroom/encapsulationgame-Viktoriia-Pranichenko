@@ -34,8 +34,8 @@ public:
         : name(characterName), health(characterHealth), 
           strength(characterStrength), currentWeapon(nullptr) {}
     
-    Weapon* getWeapon() const {
-        return currentWeapon;
+    bool hasWeapon() const {
+        return currentWeapon != nullptr;
     }
 
     void setWeapon(Weapon* weapon) {
@@ -103,10 +103,7 @@ public:
 
         // Player and enemy health checks
         while (player.getHealth() > 0 && enemy.getHealth() > 0) {
-            Weapon* playerWeapon = player.getWeapon();
-            Weapon* enemyWeapon = enemy.getWeapon();
-
-            if (playerWeapon != nullptr && enemyWeapon != nullptr) {
+            if (player.hasWeapon() && enemy.hasWeapon()) {
                 player.attack(enemy);
                 enemy.attack(player);
             }
